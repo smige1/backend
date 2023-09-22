@@ -1,45 +1,35 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerUser,
-  loginUser,
-  logout,
-  getUser,
-  getLoginStatus,
-  updateUser,
-  addToWishlist,
-  removeFromWishlist,
-  getWishlist,
-  getCart,
-  saveCart,
-  clearCart,
-  updatePhoto,
-  // changePassword,
-  // forgotPassword,
-  // resetPassword,
+    registerUser,
+    loginUser,
+    logout,
+    getUser,
+    updateUser,
+    getLoginStatus,
+    changePassword,
+    updatePhoto,
 } = require("../controllers/userController");
-const { protect } = require("../middleware/authMiddleware");
-// comment
 
+const Auth = require("../middleware/authHandler")
+
+
+//Router PATH
+//!SignUp & Login Related API End Point
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logout);
-router.get("/getUser", protect, getUser);
-router.get("/getLoginStatus", getLoginStatus);
-router.patch("/updateUser", protect, updateUser);
-router.patch("/updatePhoto", protect, updatePhoto);
-// router.patch("/changepassword", protect, changePassword);
-// router.post("/forgotpassword", forgotPassword);
-// router.put("/resetpassword/:resetToken", resetPassword);
+router.get("/loggedin", getLoginStatus);
 
-// wishlist
-router.post("/addToWishlist", protect, addToWishlist);
-router.get("/getWishlist", protect, getWishlist);
-router.put("/wishlist/:productId", protect, removeFromWishlist);
+//!User Related API End Point
+router.get("/getuser", Auth, getUser);
+router.patch("/updateuser", updateUser);
+router.patch("/updatephoto", updatePhoto);
 
-// cart
-router.get("/getCart", protect, getCart);
-router.patch("/saveCart", protect, saveCart);
-router.patch("/clearCart", protect, clearCart);
+//!Password Related API End Point
+router.patch("/changepassword", changePassword);
+//router.post("/forgotpassword", forgotPassword);
+//router.put("/resetpassword/:resetToken", resetPassword);
+
 
 module.exports = router;
