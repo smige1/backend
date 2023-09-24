@@ -11,7 +11,7 @@ const {
     updatePhoto,
 } = require("../controllers/userController");
 
-const Auth = require("../middleware/authHandler")
+const {Auth} = require("../middleware/authHandler")
 
 
 //Router PATH
@@ -19,15 +19,15 @@ const Auth = require("../middleware/authHandler")
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logout);
-router.get("/loggedin", getLoginStatus);
+router.get("/getLoginStatus", getLoginStatus);
 
 //!User Related API End Point
 router.get("/getuser", Auth, getUser);
-router.patch("/updateuser", updateUser);
-router.patch("/updatephoto", updatePhoto);
+router.patch("/updateUser",  Auth, updateUser);
+router.patch("/updatePhoto",  Auth, updatePhoto);
 
 //!Password Related API End Point
-router.patch("/changepassword", changePassword);
+router.patch("/changepassword", Auth, changePassword);
 //router.post("/forgotpassword", forgotPassword);
 //router.put("/resetpassword/:resetToken", resetPassword);
 
